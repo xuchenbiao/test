@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../plugins/elementui/index.css">
+
+    <link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div id="app">
+
+        按名称查询： <input type="text" v-model="value " @keyup.enter="btn" >
+        <button @click="btn" >搜索</button>
+
+        按类型查询： <input type="text" v-model="value2 " @keyup.enter="btn2" >
+        <button @click="btn2" >搜索</button>
+
+
+    <el-button type="primary" class="butT" @click="handleCreate()" style="margin-left: 1180px;margin-top: 10px">新建</el-button>
+
+
+    <el-table
+            :data="test"
+            style="width: 70%;margin: 0 auto">
+        <el-table-column
+                label="id"
+                prop="id">
+        </el-table-column>
+        <el-table-column
+                label="名称"
+                prop="name">
+        </el-table-column>
+        <el-table-column
+                label="类型"
+                prop="type">
+        </el-table-column>
+        <el-table-column
+                label="描述"
+                prop="description">
+        </el-table-column>
+        <el-table-column
+                align="right">
+            <template slot-scope="scope">
+                <el-button
+                        size="mini"
+                        @click="handleEdit( scope.row)">编辑</el-button>
+                <el-button
+                        size="mini"
+                        type="danger"
+                        @click="handleDelete(scope.row)">删除</el-button>
+            </template>
+        </el-table-column>
+    </el-table>
+
+
+    <div class="add-form">
+
+        <el-dialog title="添加检查项" :visible.sync="dialogFormVisible">
+
+            <el-form ref="dataForm" :model="formData" :rules="rules" label-position="right" label-width="100px">
+
+                <el-row>
+
+                    <el-col :span="12">
+
+                        <el-form-item label="图书类别" prop="type">
+
+                            <el-input v-model="formData.type"/>
+
+                        </el-form-item>
+
+                    </el-col>
+
+                    <el-col :span="12">
+
+                        <el-form-item label="图书名称" prop="name">
+
+                            <el-input v-model="formData.name"/>
+
+                        </el-form-item>
+
+                    </el-col>
+
+                </el-row>
+
+                <el-row>
+
+                    <el-col :span="24">
+
+                        <el-form-item label="描述">
+
+                            <el-input v-model="formData.description" type="textarea"></el-input>
+
+                        </el-form-item>
+
+                    </el-col>
+
+                </el-row>
+
+            </el-form>
+
+            <div slot="footer" class="dialog-footer">
+
+                <el-button @click="cancel()">取消</el-button>
+
+                <el-button type="primary" @click="handleAdd()">确定</el-button>
+
+            </div>
+
+        </el-dialog>
+
+    </div>
+
+
+
+
+
+
+    <div class="add-form">
+
+        <el-dialog title="编辑检查项" :visible.sync="dialogFormVisible4Edit">
+
+            <el-form ref="dataEditForm" :model="formData" :rules="rules" label-position="right" label-width="100px">
+
+                <el-row>
+
+                    <el-col :span="12">
+
+                        <el-form-item label="图书类别" prop="type">
+
+                            <el-input v-model="formData.type"/>
+
+                        </el-form-item>
+
+                    </el-col>
+
+                    <el-col :span="12">
+
+                        <el-form-item label="图书名称" prop="name">
+
+                            <el-input v-model="formData.name"/>
+
+                        </el-form-item>
+
+                    </el-col>
+
+                </el-row>
+
+                <el-row>
+
+                    <el-col :span="24">
+
+                        <el-form-item label="描述">
+
+                            <el-input v-model="formData.description" type="textarea"></el-input>
+
+                        </el-form-item>
+
+                    </el-col>
+
+                </el-row>
+
+            </el-form>
+
+            <div slot="footer" class="dialog-footer">
+
+                <el-button @click="cancel()">取消</el-button>
+
+                <el-button type="primary" @click="handleEdit2()">确定</el-button>
+
+            </div>
+
+        </el-dialog>
+
+    </div>
+
+</div>
+
+
+</div>
+
+</body>
+<script src="../js/vue.js"></script>
+
+<script src="../plugins/elementui/index.js"></script>
+
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+
+<script src="../js/axios-0.18.0.js"></script>
+<script>
+
+    var vue = new Vue({
+        el: '#app',
+        data:{
+           test:[],
+            dialogFormVisible4Edit:false,//编辑表单是否可见
+            formData: {},//表单数据
+            dialogFormVisible:false,
+            value:"",
+            value2:""
+
+        },
+            created() {
+                this.getAll();
+            },
+        methods:{
+            getAll() {//将信息全部显示到页面上
+
+                axios.get("http://localhost/books").then((res)=>{
+
+                  this.test=res.data.data;
+                    //console.log(res.data)
+
+                })
+
+            },
+            handleEdit(row){//编辑操作
+                axios.get("http://localhost/books/"+row.id).then((res)=>{
+                    this.dialogFormVisible4Edit = true;
+                    this.formData = res.data.data;
+                    this.getAll();
+                })
+
+            },
+            handleEdit2(){
+                axios.put("http://localhost/books",this.formData).then((res)=>{
+                    this.dialogFormVisible4Edit = false;
+                    this.getAll();
+                })
+
+            },
+            handleDelete(row){//删除操作
+             this.$confirm("此操作将永久删除此信息，是否删除？","提示",{type:"info"}).then((res)=>{
+                 axios.delete("http://localhost/books/"+row.id).then((res)=>{
+                     this.$message.success("删除成功");
+                     this.getAll();
+                 })
+             })
+            },
+            cancel(){
+                this.dialogFormVisible4Edit = false;
+                this.dialogFormVisible=false;
+            },
+            handleCreate(){
+
+                    this.dialogFormVisible=true;
+                    this.formData={}
+
+            },
+            handleAdd(){
+                axios.post("http://localhost/books",this.formData).then((res)=>{
+                    this.dialogFormVisible=false;
+                    this.getAll();
+                    this.$message.success("新增成功");
+                })
+            },
+            btn(){
+                // if(this.value!=''){
+                axios.get('http://localhost/books/name/'+this.value).then(
+                    res=>{
+                        //  console.log(res.data.data);
+                        this.test=res.data.data;
+                    }
+                )},
+            btn2(){
+                // if(this.value!=''){
+                axios.get('http://localhost/books/type/'+this.value2).then(
+                    res=>{
+                        //  console.log(res.data.data);
+                        this.test=res.data.data;
+                    }
+                )}
+
+        }
+    }
+
+
+
+
+
+    )
+
+
+
+</script>
+</html>

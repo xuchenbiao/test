@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>借书情况</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../plugins/elementui/index.css">
+    <link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
+
+</head>
+
+<body class="hold-transition">
+    <div id="app">
+        <div class="content-header">
+
+            <h1>借书情况</h1>
+
+        </div>
+        <div class="app-container">
+            <div class="box">
+
+            <div class="filter-container">
+                <el-input placeholder="图书类别" v-model="pagination.type"  style="width: 200px;" class="filter-item"></el-input>
+                <el-input placeholder="图书名称" v-model="pagination.name" style="width: 200px;" class="filter-item"></el-input>
+                <el-button @click="getAll()" class="dalfBut">查询</el-button>
+                <el-button type="info" @click="backBooks()">返回</el-button>
+
+
+            </div>
+
+            <el-table size="small" current-row-key="id" :data="dataList" stripe highlight-current-row>
+
+                <el-table-column type="index" align="center" label="序号"></el-table-column>
+
+                <el-table-column prop="type" label="图书类别" align="center"></el-table-column>
+
+                <el-table-column prop="name" label="图书名称" align="center"></el-table-column>
+
+                <el-table-column prop="description" label="描述" align="center"></el-table-column>
+                <el-table-column prop="number" label="数量" align="center"></el-table-column>
+
+                <el-table-column label="操作" align="center">
+
+                    <template slot-scope="scope">
+
+
+                        <el-button type="success" size="mini" @click="handleReturn(scope.row)">还书</el-button>
+
+
+                    </template>
+
+                </el-table-column>
+
+            </el-table>
+
+
+                <!--分页组件-->
+                <div class="pagination-container">
+
+                    <el-pagination
+                            class="pagiantion"
+
+                            @current-change="handleCurrentChange"
+
+                            :current-page="pagination.currentPage"
+
+                            :page-size="pagination.pageSize"
+
+                            layout="total, prev, pager, next, jumper"
+
+                            :total="pagination.total">
+
+                    </el-pagination>
+
+                </div>
+
+
+                <!--            还书数量界面-->
+                <div class="add-form">
+                    <el-dialog title="还书数量" :visible.sync="dialogFormVisibleReturn">
+                        <el-row>
+                            <el-input v-model="rbook.rbookNums" type="textarea"> </el-input>
+                        </el-row>
+
+                        <div slot="footer" class="dialog-footer">
+
+                            <el-button @click="cancel()">取消</el-button>
+
+                            <el-button type="primary" @click="btnReturn()">确定</el-button>
+
+
+
+
+
+                        </div>
+                    </el-dialog>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="../js/vue.js"></script>
+
+<script src="../plugins/elementui/index.js"></script>
+
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+
+<script src="../js/axios-0.18.0.js"></script>
+
+<script>
+    new Vue({
+        el:'#app',
+        data:{
+            dialogFormVisibleReturn:false,
+            dataList: [],//当前页要展示的列表数据
+            pagination: {//分页相关模型数据
+                currentPage: 1,//当前页码
+                pageSize:8,//每页显示的记录数
+                total:0,//总记录数
+                type: "",
+                name:"",
+                description:""
+            },
+            rbook:{
+                rbookNums:'',
+                id:''
+            }
+        },
+        //钩子函数，VUE对象初始化完成后自动执行
+        created() {
+            this.getAll();
+        },
+
+        methods:{
+            getAll() {
+                axios.get('/borrowOver').then(
+                    res=>{
+                        this.dataList=res.data.data;
+                    }
+                )
+            },
+
+            //切换页码
+            handleCurrentChange(currentPage) {
+                this.pagination.currentPage = currentPage;
+                //执行查询
+                this.getAll();
+            },
+            //取消
+            cancel(){
+                this.dialogFormVisibleReturn=false;
+                this.rbook.rbookNums=''
+                this.$message.info("当前操作取消");
+            },
+
+            //还书点击时
+            handleReturn(row){
+                this.rbook.id=row.id;
+                this.dialogFormVisibleReturn=true;
+
+            },
+            //还书确定
+            btnReturn(){
+                axios.get("/returns/"+this.rbook.id+"/"+this.rbook.rbookNums).then(
+                    res=>{
+                        console.log(res.data);
+                        if(res.data.flag===true){
+                            this.$alert('还书成功!');
+                            this.dialogFormVisibleReturn=false;
+                            this.rbook.rbookNums='';
+
+                        }
+                        else {
+                            this.$alert('还书失败!')
+                        }
+
+                    },
+                    err=>{
+                        console.log(err.message)
+                    }
+                ).finally(()=>{
+                    this.getAll();
+                })
+            },
+            // 返回主界面
+            backBooks(){
+                location.href="./books.html"
+            }
+
+
+
+
+
+        },
+    })
+</script>
+</html>
