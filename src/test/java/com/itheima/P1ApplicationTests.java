@@ -3,6 +3,7 @@ package com.itheima;
 import com.itheima.dao.BookDao;
 
 import com.itheima.dao.BorrowDao;
+import com.itheima.dao.EnrollDao;
 import com.itheima.domain.Book;
 import com.itheima.domain.Borrow;
 import com.itheima.service.BookService;
@@ -18,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @AutoConfigureMockMvc
-@Transactional
+//@Transactional
 class P1ApplicationTests {
 
 @Autowired
@@ -27,6 +28,8 @@ private BookService bookService;
     BookDao bookDao;
 @Autowired
     BorrowDao borrowDao;
+@Autowired
+private EnrollDao enrollDao;
     @Test
     public void getByName(){
         System.out.println(bookService.getByName("b"));
@@ -72,5 +75,13 @@ private BookService bookService;
         book.setType("一一一");
         book.setName("牛牛");
         bookService.save(book);
+    }
+    @Test
+    public void get8(){
+        enrollDao.getAllName();
+    }
+    @Test
+    public void get9(){
+        enrollDao.insert("6666","8888");
     }
 }

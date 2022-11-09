@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<link rel="stylesheet" href="../plugins/elementui/index.css">
+
+<link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="../css/style.css">
+<body>
+<div id="app">
+    <input type="text" v-model="value1">
+    <input type="password" v-model="value2">
+   <button @click="btn">登录</button>
+
+</div>
+
+
+</body>
+<script src="../js/vue.js"></script>
+
+<script src="../plugins/elementui/index.js"></script>
+
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+
+<script src="../js/axios-0.18.0.js"></script>
+
+<script>
+  var vue=new Vue({
+    el:'#app',
+    data:{
+       value1:"",
+        value2:"",
+       msg:""
+    },
+    methods:{
+        btn(){
+            if(this.value1==''||this.value2==''){
+               alert("请输入完整信息")
+            }
+            else{
+                axios.post("http://localhost/logins/"+this.value1+"/"+this.value2).then((res)=>{
+                    var k=0;
+                    this.msg=res.data.msg;
+                    if (this.msg=="登录成功"){
+                         this.$message.success('登录成功!');
+                         k=1;
+                        window.location.href="pages/books.html";
+
+                    }
+                    else {
+                        k=0;
+                        alert("输入信息有误");
+                        window.location.href="byMyself.html";
+
+                    }
+
+                })
+            }
+        }
+    }
+
+
+  })
+
+
+
+
+
+
+
+
+
+
+</script>
+
+</html>

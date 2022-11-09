@@ -6,6 +6,12 @@ import lombok.Data;
 public class R {
     boolean flag;
     Object data;
+    String msg;
+
+    public R(boolean flag, String msg) {
+        this.flag = flag;
+        this.msg = msg;
+    }
 
     public R() {
     }
