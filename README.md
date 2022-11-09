@@ -10,7 +10,7 @@
        如果登录失败，这分很多种原因。
        不同原因我都会以msg显示出来，但是flag一定是false
 
-    二、http://localhost/enroll  (这是注册接口，post请求)
+    二、http://localhost/enrolls  (这是注册接口，post请求)
     1、跟上面一样
     
 
