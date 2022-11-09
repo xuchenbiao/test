@@ -15,7 +15,7 @@ body {
     background-size: cover;
 }
 
-.box {
+.box  {
     border-radius: 20px;
     display: flex;
     flex-direction: column;

@@ -17,7 +17,7 @@ public class ConfigController {
 
 
     @PostMapping
-    public R Login1(@RequestBody User user, HttpSession session,long r) {
+    public R Login1(@RequestBody User user, HttpSession session) {
         List<String> list1 = userDao.getUsername();
        List<String> list2 = userDao.getPassword();
         int flag = 5;

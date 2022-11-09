@@ -5,43 +5,73 @@
   <meta charset="UTF-8">
   <title>注册</title>
   <link rel="stylesheet" href="style.css" />
-  <style>
-    .c1 {
-      margin: 0 auto;
-      width: 200px;
-      height: 100px;
-    }
-  </style>
+  <link rel="stylesheet" href="../plugins/elementui/index.css">
+
 
 </head>
 
 <body>
-<form action="http://localhost/enroll" method="post" class="box">
+<div  id="app" class="box">
   <div class="c1">
   <h2>注册</h2>
   <div class="input-box">
     <label>新用户名</label>
-    <input type="text"  name="username" value="" id="one"/>
+    <input type="text"  name="username" v-model="username" id="one"/>
   </div>
   <div class="input-box">
     <label>密码</label>
-    <input type="password"  name="password" value="" id="two"/>
-    <!--      <img src="./image/闭眼.png" id="eyes">-->
+    <input type="password"  name="password" v-model="password" id="two"/>
+
   </div>
   <div class="btn-box">
 
     <div>
-      <button  id="btn" >注册</button>
+      <button  id="btn" @click="enroll()" >注册</button>
       <a href="./index.html" >返回登录界面</a>
 
     </div>
   </div>
   </div>
-</form>
+</div>
 
-<script src="./to_password.js"></script>
+
 <script type="text/javascript" src="https://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
 
 </body>
+<script src="../js/vue.js"></script>
+<script src="../js/axios-0.18.0.js"></script>
+<script src="../plugins/elementui/index.js"></script>
 
+
+
+<script>
+  new Vue({
+    el:"#app",
+    data:{
+      username:'',
+      password:'',
+    },
+    methods:{
+      enroll(){
+        axios.post("/enrolls",{
+          username:this.username,
+          password: this.password
+        }).then(
+                res=>{
+                  console.log(res.data);
+                  if(res.data.flag===true){
+                    this.$message.success("注册成功!");
+                    setTimeout(()=>{
+                      location.href='./index.html';
+                    },1000)
+                  }
+                  else {
+                    this.$message.warning(res.data.msg);
+                  }
+                }
+        )
+      }
+    }
+  })
+</script>
 </html>
