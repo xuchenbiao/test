@@ -1,5 +1,8 @@
 package com.itheima.service;
 
-public interface EnrollService {
-    public boolean insert(String username,String password);
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.itheima.domain.User;
+
+public interface EnrollService extends IService<User> {
+//    public boolean insert(String username,String password);
 }

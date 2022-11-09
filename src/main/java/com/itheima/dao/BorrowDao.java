@@ -14,8 +14,6 @@ public interface BorrowDao extends BaseMapper<Borrow> {
     public void update(Integer number,String name);
     @Select("select * from borrow where name=#{name}")
     public Borrow selectAll(String name);
-    @Delete("select * from borrow where name=#{name}")
-    public void delete(String name);
     @Select("select number from borrow where id=#{id}")
     public int selectNumber(Integer id);
     @Select("select name from borrow where id=#{id}")

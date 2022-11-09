@@ -80,8 +80,8 @@ private EnrollDao enrollDao;
     public void get8(){
         enrollDao.getAllName();
     }
-    @Test
-    public void get9(){
-        enrollDao.insert("6666","8888");
-    }
+//    @Test
+//    public void get9(){
+//        enrollDao.insert("6666","8888");
+//    }
 }
