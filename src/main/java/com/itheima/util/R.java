@@ -8,6 +8,9 @@ public class R {
     Object data;
     String msg;
 
+
+
+
     public R(boolean flag, String msg) {
         this.flag = flag;
         this.msg = msg;
