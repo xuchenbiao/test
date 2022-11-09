@@ -19,6 +19,8 @@ public class ConfigController {
         List<String> list1 = userDao.getUsername();
         List<String> list2 = userDao.getPassword();
         int flag = 5;
+
+
         for (int i = 0; i < list1.size(); i++) {
             if (user.getUsername().equals(list1.get(i))) {
                 if (user.getPassword().equals(list2.get(i))) {
@@ -27,13 +29,19 @@ public class ConfigController {
                 }
             } else flag = 0;
         }
-        if (flag == 1) {
+        if (flag == 1&&(user.getUsername()!=""&&user.getPassword()!="")) {
             session.setAttribute("loginUser", user.getUsername());
             session.setMaxInactiveInterval(5);
             return new R(true, "登录成功");
-        } else return new R(false, "您输入的信息有误，请重新输入");
+        }
+        else if ((user.getUsername()==""||user.getPassword()=="")&&flag!=1){
+            return new R(false, "请输入完整的信息");
+        }
+        else if(user.getUsername()!=""&&user.getPassword()!=""&&flag!=1) return new R(false, "您的账号或密码有误，请重新输入");
+        else return new R(false,"系统错误");
     }
 }
+
 
 
 
