@@ -8,16 +8,57 @@
 
   <link rel="stylesheet" href="../plugins/elementui/index.css">
   <link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
-
-
+  <style>
+    .ttt{
+      text-align: center;
+    }
+    .box {
+      margin-left: 1000px;
+      width: 470px;
+      height: 470px;
+      background-image: url("xk.gif");
+      background-repeat: no-repeat;
+    }
+    #root{
+      width: 1000px;
+    }
+  </style>
+  <script>
+    window.onload=function(){
+      var prev=document.getElementById("prev")
+      var next=document.getElementById("next")
+      var img=document.getElementsByTagName("img")[0]
+      var imgArr=["./image/斗罗大陆.png","./image/斗破苍穹.png","./image/遮天.png","./image/逆天邪神.png"]
+      var index=0
+      prev.onclick=function(){
+        index--
+        if(index<0){
+          index=imgArr.length-1
+        }
+        img.src=imgArr[index]
+      }
+      next.onclick=function(){
+        index++
+        if(index>imgArr.length-1){
+          index=0
+        }
+        img.src=imgArr[index]
+      }
+    }
+  </script>
 
 </head>
 
 <body >
-
-<div id="app"   class="box">
-  <div class="c1">
-  <h2>登陆</h2>
+<div id="root" style=" width: 500px;height: 400px;position: absolute;margin-left: -300px;margin-top: -240px">
+  <a href="https://www.iqiyi.com/"><img src="./image/斗罗大陆.png" alt="电影" @click="turn" ></a>
+  <button id="prev">《《上一部电影</button>
+  <button id="next">下一部电影》》</button>
+  <!-- <button @click="btn()">111</button> -->
+</div >
+<div id="app"   class="box"  style="background-color: pink;position: absolute;margin-right: -200px">
+  <div class="c1" >
+  <h1 style="text-align: center">登陆</h1>
   <div class="input-box">
     <label>用户名</label>
     <input type="text"  name="username"  v-model="username"  />
