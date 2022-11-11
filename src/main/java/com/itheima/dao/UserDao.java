@@ -11,4 +11,6 @@ public interface UserDao {
     public List<String> getUsername();
     @Select("select password from user ")
     public List<String> getPassword();
+    @Select("select username from user where username like CONCAT('%', #{username}, '%')")
+    public List<String> getUserNames(String username);
 }

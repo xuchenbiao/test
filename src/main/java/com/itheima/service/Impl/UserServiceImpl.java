@@ -20,4 +20,9 @@ public class UserServiceImpl implements UserService {
     public List<String> getPassword() {
         return userDao.getPassword();
     }
+
+    @Override
+    public List<String> getUserNames(String username) {
+        return userDao.getUserNames(username);
+    }
 }

@@ -14,6 +14,10 @@ public class AdminiController {
     public R getName(){
         return new R(true,userService.getName());
     }
+    @GetMapping("/name/{name}")
+    public R getNameByName(@PathVariable String name){
+        return new R(true,userService.getUserNames(name),null);
+    }
     @PostMapping
     public R getPassword(@RequestBody EJ ej){
         if(ej.getPassword().equals("123456")){

@@ -27,4 +27,10 @@ public class R {
     public R(boolean flag) {
         this.flag = flag;
     }
+
+    public R(boolean flag, Object data, String msg) {
+        this.flag = flag;
+        this.data = data;
+        this.msg = msg;
+    }
 }
