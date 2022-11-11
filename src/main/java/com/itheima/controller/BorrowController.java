@@ -43,12 +43,12 @@ public class BorrowController {
                      kk = 0;
              }
              if (kk == 1) {
-                 return new R(borrowService.update(borrow.getNumber() + number, book.getName()), borrowService.list());
+                 return new R(borrowService.update(borrow.getNumber() + number, book.getName()));
              } else {
                  Borrow borrow1 = new Borrow();
                  borrow1.setName(book.getName());
                  borrow1.setNumber(number);
-                 return new R(borrowService.save(borrow1), borrowService.list());
+                 return new R(borrowService.save(borrow1));
              }
          }
          else

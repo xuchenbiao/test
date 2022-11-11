@@ -47,11 +47,11 @@ public class ReturnController {
                 if (borrow.getNumber()>0){
                     book.setNumber(book.getNumber() + number);
                     bookService.updateById(book);//更新原本图书数量
-                return new R(borrowService.updateById(borrow), borrowService.list());}
+                return new R(borrowService.updateById(borrow));}
                 else if(borrow.getNumber()==0){
                     book.setNumber(book.getNumber() + number);
                     bookService.updateById(book);//更新原本图书数量
-                    return new R(borrowService.removeById(id),borrowService.list());}
+                    return new R(borrowService.removeById(id));}
                 else  return new R(false);
         }
     }
