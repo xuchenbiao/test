@@ -32,7 +32,7 @@ public class ConfigController {
            } else flag = 0;
        }
        if (flag == 1&&(user.getUsername()!=""&&user.getPassword()!="")) {
-           session.setAttribute("loginUser", user.getUsername());
+           session.setAttribute("loginUser", "user");
            session.setMaxInactiveInterval(5);
            return new R(true, "登录成功");
        }

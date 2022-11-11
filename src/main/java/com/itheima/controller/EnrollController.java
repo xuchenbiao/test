@@ -2,6 +2,7 @@ package com.itheima.controller;
 
 import com.itheima.dao.EnrollDao;
 import com.itheima.domain.User;
+import com.itheima.service.AdminiService;
 import com.itheima.service.EnrollService;
 import com.itheima.util.R;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,18 +17,25 @@ public class EnrollController {
    private EnrollDao enrollDao;
     @Autowired
     private EnrollService enrollService;
+    @Autowired
+    private AdminiService adminiService;
     @PostMapping
     public R Enroll(@RequestBody User user){
-          int k=0;
+          int k=0,p=0;
         List<String> list=enrollDao.getAllName();
-       for (int i=0;i<list.size();i++){
+       List<String> list1=adminiService.getName();
+        for (int i=0;i<list.size();i++){//判断是否与用户重名
           if (list.get(i).equals(user.getUsername())){k=1;break;}
           else k=0;
        }
+        for (int i=0;i<list1.size();i++){//判断是否与管理员重名
+            if (list1.get(i).equals(user.getUsername())){p=1;break;}
+            else p=0;
+        }
         if((user.getUsername()==""||user.getPassword()=="")){
             return  new R(false,"请输入完整信息");
         }
-       else if (k==1&&(user.getUsername()!=""&&user.getPassword()!="")){
+       else if (k==1&&(user.getUsername()!=""&&user.getPassword()!="")||p==1){
            return  new R(false,"注册失败!用户信息已存在");
        }
 

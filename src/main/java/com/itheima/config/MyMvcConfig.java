@@ -9,10 +9,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class MyMvcConfig implements WebMvcConfigurer {
     @Autowired
   private   LoginHandlerInterceptor loginHandlerInterceptor;
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-registry.addInterceptor(loginHandlerInterceptor).addPathPatterns("/books","/borrowOver");
-
+registry.addInterceptor(loginHandlerInterceptor).addPathPatterns("/pages/books.html","/pages/ReturnBooks.html");
+    //    registry.addInterceptor(loginHandlerInterceptor).addPathPatterns("/books","/borrowOver");
 
     }
 }
