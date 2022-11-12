@@ -7,16 +7,34 @@ spring:
       url: jdbc:mysql://127.0.0.1:3306/movie?useUnicode=true&characterEncoding=UTF-8&userSSL=false&serverTimezone=GMT%2B8
       username: root
       password: 123456
+  boot:
+    admin:
+      client:
+        url: http://localhost:8080
+
 mybatis-plus:
   global-config:
     db-config:
       id-type: input
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  info:
+    env:
+      enabled: true
 
-testcase:
-  book:
-    a: ${random.int(100)}
-    b: ${random.int(100)}
-    c: ${random.int(2)}
+#  项目名称: 图书信息管理系统
+#  小组成员: 林志霖，吴勇平，徐晨标
+info:
+  Project: Library Information Management System
+  Implementation Function: CURD
+  Team members: 徐晨标，吴勇平，林志霖
+  Applied Technology: Springboot+MyBatisPlus+Vue全家桶
 
