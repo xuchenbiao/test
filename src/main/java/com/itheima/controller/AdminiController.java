@@ -14,6 +14,10 @@ public class AdminiController {
     public R getName(){
         return new R(true,userService.getName());
     }
+    @GetMapping("/admini")
+    public R getAll(){
+        return new R(true,userService.list());
+    }
     @GetMapping("/name/{name}")
     public R getNameByName(@PathVariable String name){
         return new R(true,userService.getUserNames(name),null);
