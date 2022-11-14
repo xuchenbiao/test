@@ -1,6 +1,4 @@
 package com.itheima.controller;
-
-import com.itheima.domain.Book;
 import com.itheima.domain.Car;
 import com.itheima.domain.Total;
 import com.itheima.service.BookService;
@@ -53,9 +51,6 @@ public R getAllMoney(){
                 break;
             }
         }
-
-
-
           if (k == 1) {
               double d = list2.get(o).getNumber() + list.get(i).getNumber();
               Integer ii = (int) Math.round(d);
