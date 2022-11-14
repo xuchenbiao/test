@@ -58,6 +58,7 @@ public R getAll(){
         totalService.save(total);
   }
            }
+      totalService.deleteAll();
       return new R(true);
       }
 

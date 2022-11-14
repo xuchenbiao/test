@@ -20,4 +20,10 @@ public class TotalServiceImpl extends ServiceImpl<TotalDao, Total> implements To
     public Integer getNumber(String name) {
         return totalDao.getNumber(name);
     }
+
+    @Override
+    public boolean deleteAll() {
+         totalDao.deleteAll();
+         return true;
+    }
 }
