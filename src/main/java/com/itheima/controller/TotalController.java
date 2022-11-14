@@ -24,6 +24,16 @@ private TotalService totalService;
 public R getAll(){
     return new R(true,totalService.list());
 }
+@GetMapping("/price")
+public R getAllMoney(){
+    List<Total> list =totalService.list();
+    double k=0;
+    for(int i=0;i<list.size();i++){
+        k+=list.get(i).getTotalprice();
+    }
+    return new R(true,k,"操作成功");
+}
+
 
   @PostMapping
     public R getTotal() {
