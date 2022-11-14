@@ -24,4 +24,8 @@ public interface BookDao extends BaseMapper<Book> {
     public double selectPrice(Integer id);
     @Select("select totalPrice from book where id=#{id}")//总价
     public double selectTotalPrice(Integer id);
+    @Update("update book set number=#{number} where name =#{name}")
+    public void update(Integer number,String name);
+    @Select("select number from book where name=#{name}")
+    public Integer getNumberByName(String name);
 }

@@ -48,5 +48,16 @@ public class BookServiceImpl extends ServiceImpl<BookDao,Book> implements BookSe
         return bookDao.selectTotalPrice(id);
     }
 
+    @Override
+    public boolean update(Integer number, String name) {
+         bookDao.update(number,name);
+        return true;
+    }
+
+    @Override
+    public Integer getNumberByName(String name) {
+        return bookDao.getNumberByName(name);
+    }
+
 
 }

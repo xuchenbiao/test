@@ -14,6 +14,8 @@ public interface BookService extends IService<Book>  {
     public List<Book> getByType2();
     public double getPrice(Integer id);
     public double getTotalPrice(Integer id);
+    public boolean update(Integer number,String name);
+    public Integer getNumberByName(String name);
 
 
 }

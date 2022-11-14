@@ -1,7 +1,9 @@
 package com.itheima.controller;
 
+import com.itheima.domain.Book;
 import com.itheima.domain.Car;
 import com.itheima.domain.Total;
+import com.itheima.service.BookService;
 import com.itheima.service.CarService;
 import com.itheima.service.TotalService;
 import com.itheima.util.R;
@@ -20,6 +22,8 @@ public class TotalController {
     private CarService carService;
 @Autowired
 private TotalService totalService;
+@Autowired
+private BookService bookService;
 @GetMapping
 public R getAll(){
     return new R(true,totalService.list());
@@ -39,6 +43,7 @@ public R getAllMoney(){
     public R getTotal() {
       List<Car> list = carService.list();
    List<Total> list2=totalService.list();
+//   List<Book> list3=bookService.list();
       for (int i = 0; i < list.size(); i++) {
         int k=0,o=0;
         for(int j=0;j<list2.size();j++){
@@ -49,25 +54,30 @@ public R getAllMoney(){
             }
         }
 
-        if(k==1){
-            double d=list2.get(o).getNumber()+list.get(i).getNumber();
-            Integer ii=(int)Math.round(d);
-            totalService.update(
-                    ii,
-                list2.get(o).getPrice(),
-                list2.get(o).getPrice()*(list2.get(o).getNumber()+list.get(i).getNumber()) ,
-                list2.get(o).getName()
-            );
-        }
-        else{
-        Total total=new Total();
-        total.setName(list.get(i).getName());
-        total.setPrice(list.get(i).getPrice());
-        total.setNumber(list.get(i).getNumber());
-        total.setTotalprice(list.get(i).getTotalprice());
-        totalService.save(total);
-  }
-           }
+
+
+          if (k == 1) {
+              double d = list2.get(o).getNumber() + list.get(i).getNumber();
+              Integer ii = (int) Math.round(d);
+              totalService.update(
+                      ii,
+                      list2.get(o).getPrice(),
+                      list2.get(o).getPrice() * (list2.get(o).getNumber() + list.get(i).getNumber()),
+                      list2.get(o).getName()
+              );
+              bookService.update(bookService.getNumberByName(list.get(i).getName()) - list.get(i).getNumber(), list.get(i).getName());
+
+          } else {
+              Total total = new Total();
+              total.setName(list.get(i).getName());
+              total.setPrice(list.get(i).getPrice());
+              total.setNumber(list.get(i).getNumber());
+              total.setTotalprice(list.get(i).getTotalprice());
+              totalService.save(total);
+              bookService.update(bookService.getNumberByName(list.get(i).getName()) - list.get(i).getNumber(), list.get(i).getName());
+          }
+      }
+
       totalService.deleteAll();
       return new R(true);
       }

@@ -31,29 +31,27 @@ public class CarController {
                break;
             }
         }
-        System.out.println(k);
 
-      if(k==1){
+       if(bookService.getNumberByName(book.getName())-book.getNumber()>=0) {
 
-         return new R (carService.update(
-                 book.getNumber()+ carService.getNumber(book.getName()),
-                         book.getPrice(),
-                 (book.getNumber()+ carService.getNumber(book.getName()))*book.getPrice(),
-                            book.getName()));//写这个头痛
-      }
-     else{
-        Car car=new Car();
-         // Total total=new Total();
-        car.setPrice( book.getPrice());
-        car.setName( book.getName());
-       car.setNumber(book.getNumber());
-       car.setTotalprice(book.getPrice()*book.getNumber());
-//       total.setNumber(car.getNumber());
-//       total.setPrice(car.getPrice());
-//       total.setName(car.getName());
-//       total.setTotalprice(car.getTotalprice());
-//       totalService.save(total);
-       return  new R(carService.save(car));}
+           if (k == 1) {
+
+               return new R(carService.update(
+                       book.getNumber() + carService.getNumber(book.getName()),
+                       book.getPrice(),
+                       (book.getNumber() + carService.getNumber(book.getName())) * book.getPrice(),
+                       book.getName()));//写这个头痛
+           } else {
+               Car car = new Car();
+               // Total total=new Total();
+               car.setPrice(book.getPrice());
+               car.setName(book.getName());
+               car.setNumber(book.getNumber());
+               car.setTotalprice(book.getPrice() * book.getNumber());
+               return new R(carService.save(car));
+           }
+       }
+       else return new R(false,"超出范围!");
     }
     @DeleteMapping("/{id}")
     public R deleteCar(@PathVariable Integer id){
