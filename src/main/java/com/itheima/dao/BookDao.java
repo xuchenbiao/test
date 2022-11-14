@@ -20,4 +20,8 @@ public interface BookDao extends BaseMapper<Book> {
     public int selectNumber(Integer id);
     @Select("select * from book where name=#{name}")//放回原本图书数量
     public Book selectAll(String name);
+    @Select("select price from book where id=#{id}")//单价
+    public double selectPrice(Integer id);
+    @Select("select totalPrice from book where id=#{id}")//总价
+    public double selectTotalPrice(Integer id);
 }

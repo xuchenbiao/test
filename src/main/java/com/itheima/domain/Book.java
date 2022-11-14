@@ -2,9 +2,11 @@ package com.itheima.domain;
 import lombok.Data;
 @Data
 public class Book {
-    Integer id;
-    String type;
-    String name;
-    String description;
-    Integer number;
+    private  Integer id;
+    private  String type;
+    private String name;
+    private  String description;
+    private   Integer number;
+    private  double price;
+
 }

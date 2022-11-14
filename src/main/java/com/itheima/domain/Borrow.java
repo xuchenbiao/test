@@ -4,8 +4,8 @@ import lombok.Data;
 
 @Data
 public class Borrow {
-    Integer id;
-    String name;
-    Integer number;
+    private Integer id;
+    private  String name;
+    private   Integer number;
 
 }

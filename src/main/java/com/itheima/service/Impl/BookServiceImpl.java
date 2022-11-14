@@ -38,9 +38,15 @@ public class BookServiceImpl extends ServiceImpl<BookDao,Book> implements BookSe
         return bookDao.selectByType2();
     }
 
+    @Override
+    public double getPrice(Integer id) {
+        return bookDao.selectPrice(id);
+    }
 
-
-
+    @Override
+    public double getTotalPrice(Integer id) {
+        return bookDao.selectTotalPrice(id);
+    }
 
 
 }

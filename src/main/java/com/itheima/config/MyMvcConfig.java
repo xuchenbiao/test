@@ -17,7 +17,7 @@ public class MyMvcConfig implements WebMvcConfigurer {
     //}
 
 
-    @Override
+    @Override//解决跨域
     public void addCorsMappings(CorsRegistry registry) {
        registry.addMapping("/**")
                .allowedHeaders("*")
