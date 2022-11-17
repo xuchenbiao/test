@@ -9,4 +9,5 @@ public interface UserService extends IService<User> {
     public List<String> getName();
     public List<String> getPassword();
     public List<String> getUserNames(String username);
+    public List<User> getName(String username);
 }

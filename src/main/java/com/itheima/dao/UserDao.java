@@ -15,4 +15,6 @@ public interface UserDao extends BaseMapper<User> {
     public List<String> getPassword();
     @Select("select username from user where username like CONCAT('%', #{username}, '%')")
     public List<String> getUserNames(String username);
+    @Select("select * from user where username like CONCAT('%', #{username}, '%')")
+    public List<User> getName(String username);
 }

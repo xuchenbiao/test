@@ -27,4 +27,9 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
     public List<String> getUserNames(String username) {
         return userDao.getUserNames(username);
     }
+
+    @Override
+    public List<User> getName(String username) {
+        return userDao.getName(username);
+    }
 }
