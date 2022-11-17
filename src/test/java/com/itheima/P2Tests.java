@@ -4,6 +4,7 @@ import com.itheima.dao.AdminiDao;
 import com.itheima.dao.BookDao;
 import com.itheima.dao.TotalDao;
 import com.itheima.domain.Car;
+import com.itheima.service.BookService;
 import com.itheima.service.CarService;
 import com.itheima.service.UserService;
 import org.junit.jupiter.api.Test;
@@ -22,6 +23,8 @@ public class P2Tests {
     private CarService carService;
     @Autowired
     private TotalDao totalDao;
+    @Autowired
+    private BookService bookService;
     @Test
     public void g1(){
         adminiDao.getName();
@@ -46,5 +49,10 @@ public class P2Tests {
     @Test
     public void g4(){
        carService.getAllName();
+    }
+
+    @Test
+    public void g5(){
+        bookService.getByDescription("好");
     }
 }

@@ -28,4 +28,6 @@ public interface BookDao extends BaseMapper<Book> {
     public void update(Integer number,String name);
     @Select("select number from book where name=#{name}")
     public Integer getNumberByName(String name);
+    @Select("select * from book where description like concat('%',#{description},'%')")
+    public List<Book> getByDescription(String description);
 }

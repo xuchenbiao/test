@@ -59,5 +59,10 @@ public class BookServiceImpl extends ServiceImpl<BookDao,Book> implements BookSe
         return bookDao.getNumberByName(name);
     }
 
+    @Override
+    public List<Book> getByDescription(String description) {
+        return bookDao.getByDescription(description);
+    }
+
 
 }
