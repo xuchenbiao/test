@@ -11,18 +11,18 @@ public class MyMvcConfig implements WebMvcConfigurer {
     @Autowired
   private   LoginHandlerInterceptor loginHandlerInterceptor;
 
-//    @Override
-//    public void addInterceptors(InterceptorRegistry registry) {
-//registry.addInterceptor(loginHandlerInterceptor).addPathPatterns("/pages/books.html","/pages/ReturnBooks.html");
-    //}
-
-
-    @Override//解决跨域
-    public void addCorsMappings(CorsRegistry registry) {
-       registry.addMapping("/**")
-               .allowedHeaders("*")
-               .allowedMethods("*")
-               .maxAge(1800)
-               .allowedOrigins("*");
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+registry.addInterceptor(loginHandlerInterceptor).addPathPatterns("/**").excludePathPatterns("/logins","/adminis","/enrolls");
     }
+
+
+//    @Override//解决跨域
+//    public void addCorsMappings(CorsRegistry registry) {
+//       registry.addMapping("/**")
+//               .allowedHeaders("*")
+//               .allowedMethods("*")
+//               .maxAge(1800)
+//               .allowedOrigins("*");
+//    }
 }

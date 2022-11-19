@@ -33,7 +33,7 @@ public class AdminiConfigController {
             } else flag = 0;
         }
         if (flag == 1&&(admini.getAdmininame()!=""&&admini.getAdminipassword()!="")) {
-            session.setAttribute("Admini","admini");
+            session.setAttribute("loginUser","admini");
             session.setMaxInactiveInterval(5);
             return new R(true, "登录成功");
         }
