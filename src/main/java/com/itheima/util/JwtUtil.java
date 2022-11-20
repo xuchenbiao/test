@@ -1,19 +1,6 @@
 package com.itheima.util;
-
-
 import io.jsonwebtoken.*;
-import javafx.util.Builder;
-import net.sf.jsqlparser.expression.DateTimeLiteralExpression;
-import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
-import org.yaml.snakeyaml.scanner.Constant;
-
-import javax.xml.crypto.Data;
-import java.security.KeyStore;
 import java.util.Date;
-import java.util.UUID;
-
-import static com.fasterxml.jackson.databind.type.LogicalType.DateTime;
-
 //jwt通用工具类
 public class JwtUtil {
      private static long time=1000*60*60*24;

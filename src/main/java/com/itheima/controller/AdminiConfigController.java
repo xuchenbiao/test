@@ -45,16 +45,16 @@ public class AdminiConfigController {
         else return new R(false,"系统错误");
     }
 
-//    @GetMapping("/checkToken")
-//    public R checkToken(HttpServletRequest request){
-//        String token=request.getHeader("token");
-//        return new R(JwtUtil.checkToken(token));
-//    }
     @GetMapping
-    public R checkToken(@RequestBody Admini admini){
-        String token=admini.getToken();
+    public R checkToken(HttpServletRequest request){
+        String token=request.getHeader("token");
         return new R(JwtUtil.checkToken(token));
     }
+//    @GetMapping
+//    public R checkToken(@RequestBody Admini admini){
+//        String token=admini.getToken();
+//        return new R(JwtUtil.checkToken(token));
+//    }
 
 }
 
