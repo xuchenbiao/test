@@ -42,7 +42,7 @@ public class ConfigController {
             session.setAttribute("loginUser","admini");
 
               // session.setAttribute("loginUser","admini");
-           session.setMaxInactiveInterval(100); //  session.setMaxInactiveInterval(100);
+           session.setMaxInactiveInterval(30); //  session.setMaxInactiveInterval(100);
            Cookie cookie = new Cookie("JSESSIONID", session.getId());
            cookie.setMaxAge(60*30);//设置cookie的生命周期为30min
            response.addCookie(cookie);

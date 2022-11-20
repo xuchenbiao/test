@@ -36,7 +36,7 @@ public class AdminiConfigController {
         if (flag == 1&&(admini.getAdmininame()!=""&&admini.getAdminipassword()!="")) {
 
             session.setAttribute("loginUser","admini");
-            session.setMaxInactiveInterval(20);
+            session.setMaxInactiveInterval(30);
             Cookie cookie = new Cookie("JSESSIONID", session.getId());
             cookie.setMaxAge(60*30);//设置cookie的生命周期为30min
             response.addCookie(cookie);
