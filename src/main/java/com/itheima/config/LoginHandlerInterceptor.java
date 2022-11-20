@@ -15,11 +15,11 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
 
         if (loginUser==null)
         {
-            System.out.println("666");
+            System.out.println("token时间已过，拦截器开启拦截");
             return false;
         }
         else{
-            System.out.println("999");
+            System.out.println("token时间未过，拦截器未拦截");
             return true;}
     }
 }
