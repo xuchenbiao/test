@@ -7,4 +7,5 @@ public class Admini {
     private Integer id;
     private String admininame;
     private String adminipassword;
+    private String token;
 }

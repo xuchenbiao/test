@@ -12,14 +12,14 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         Object loginUser = request.getSession().getAttribute("loginUser");
 
-        System.out.println("11"+loginUser);
+
         if (loginUser==null)
         {
-            System.out.println("22");
+            System.out.println("666");
             return false;
         }
         else{
-            System.out.println("33");
+            System.out.println("999");
             return true;}
     }
 }
