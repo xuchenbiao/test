@@ -18,6 +18,13 @@ import java.util.List;
 public class AdminiConfigController {
    @Autowired
    private AdminiService adminiService;
+//    @DeleteMapping
+//    public R deleteSession(HttpSession session){
+//       // session.setAttribute("loginUser",null);
+//        session.removeAttribute("loginUser");
+//        System.out.println("66");
+//        return  new R(true);
+//    }
     @PostMapping
     public R Login1(@RequestBody Admini admini, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
         List<String> list1 =adminiService.getName();
@@ -43,6 +50,10 @@ public class AdminiConfigController {
             String token= JwtUtil.createJwt(admini.getAdmininame());
             admini.setToken(token);
             return new R(true,admini, "登录成功");
+      }
+       else if(admini.getAdmininame().equals("tuichu")){
+           session.setAttribute("loginUser",null);
+           return new R(true, "成功退出");
         }
         else if ((admini.getAdmininame()==""||admini.getAdminipassword()=="")&&flag!=1){
             return new R(false, "请输入完整的信息");
@@ -56,6 +67,8 @@ public class AdminiConfigController {
         String token=request.getHeader("token");
         return new R(JwtUtil.checkToken(token));
     }
+
+
 
 
 }

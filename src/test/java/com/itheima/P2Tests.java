@@ -1,11 +1,16 @@
 package com.itheima;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.itheima.dao.AdminiDao;
 import com.itheima.dao.BookDao;
 import com.itheima.dao.TotalDao;
+import com.itheima.domain.Book;
 import com.itheima.domain.Car;
 import com.itheima.service.BookService;
 import com.itheima.service.CarService;
+
+import com.itheima.service.RtotalService;
 import com.itheima.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +30,8 @@ public class P2Tests {
     private TotalDao totalDao;
     @Autowired
     private BookService bookService;
+   @Autowired
+   private RtotalService rtotalService;
     @Test
     public void g1(){
         adminiDao.getName();
@@ -54,5 +61,15 @@ public class P2Tests {
     @Test
     public void g5(){
         bookService.getByDescription("好");
+    }
+    @Test
+    public void g6(){
+      rtotalService.list();
+
+    }
+    @Test
+    public void g7(){
+       IPage page=new Page(1,1);
+       bookService.page(page,null);
     }
 }
