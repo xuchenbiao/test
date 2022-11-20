@@ -7,7 +7,9 @@ import com.itheima.util.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -17,7 +19,7 @@ public class AdminiConfigController {
    @Autowired
    private AdminiService adminiService;
     @PostMapping
-    public R Login1(@RequestBody Admini admini, HttpSession session) {
+    public R Login1(@RequestBody Admini admini, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
         List<String> list1 =adminiService.getName();
         List<String> list2 =adminiService.getPassword();
         int flag = 5;
@@ -32,10 +34,12 @@ public class AdminiConfigController {
             } else flag = 0;
         }
         if (flag == 1&&(admini.getAdmininame()!=""&&admini.getAdminipassword()!="")) {
-            Object obj=session.getAttribute("loginUser");
-            if(obj==null){
+
             session.setAttribute("loginUser","admini");
-            session.setMaxInactiveInterval(20);}
+            session.setMaxInactiveInterval(20);
+            Cookie cookie = new Cookie("JSESSIONID", session.getId());
+            cookie.setMaxAge(60*30);//设置cookie的生命周期为30min
+            response.addCookie(cookie);
             String token= JwtUtil.createJwt(admini.getAdmininame());
             admini.setToken(token);
             return new R(true,admini, "登录成功");

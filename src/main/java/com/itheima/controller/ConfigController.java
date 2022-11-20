@@ -3,23 +3,27 @@ import com.itheima.dao.UserDao;
 import com.itheima.domain.User;
 import com.itheima.util.JwtUtil;
 import com.itheima.util.R;
-
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 @RestController
 @RequestMapping("/logins")
 public class ConfigController {
+
     @Autowired
     private UserDao userDao;
 
 
     @PostMapping
-    public R Login1(@RequestBody User user, HttpSession session) {
+    public R Login1(@RequestBody User user, HttpSession session,HttpServletRequest request,HttpServletResponse response) {
         List<String> list1 = userDao.getUsername();
        List<String> list2 = userDao.getPassword();
         int flag = 5;
@@ -34,12 +38,17 @@ public class ConfigController {
            } else flag = 0;
        }
        if (flag == 1&&(user.getUsername()!=""&&user.getPassword()!="")) {
-           Object obj=session.getAttribute("loginUser");
-           if(obj==null){
-               session.setAttribute("loginUser","admini");
-               session.setMaxInactiveInterval(20);}
+
+            session.setAttribute("loginUser","admini");
+
+              // session.setAttribute("loginUser","admini");
+           session.setMaxInactiveInterval(100); //  session.setMaxInactiveInterval(100);
+           Cookie cookie = new Cookie("JSESSIONID", session.getId());
+           cookie.setMaxAge(60*30);//设置cookie的生命周期为30min
+           response.addCookie(cookie);
            String token= JwtUtil.createJwt(user.getUsername());
            user.setToken(token);
+
            return new R(true,user, "登录成功");
        }
        else if ((user.getUsername()==""||user.getPassword()=="")&&flag!=1){
