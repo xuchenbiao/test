@@ -50,11 +50,7 @@ public class AdminiConfigController {
         String token=request.getHeader("token");
         return new R(JwtUtil.checkToken(token));
     }
-//    @GetMapping
-//    public R checkToken(@RequestBody Admini admini){
-//        String token=admini.getToken();
-//        return new R(JwtUtil.checkToken(token));
-//    }
+
 
 }
 
