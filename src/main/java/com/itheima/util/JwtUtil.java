@@ -3,7 +3,8 @@ import io.jsonwebtoken.*;
 import java.util.Date;
 //jwt通用工具类
 public class JwtUtil {
-     private static long time=1000*60*60*24;
+//     private static long time=1000*60*60*24;
+private static long time=1000*20;
      private static String signature="admin";
     //创建token
     public static String createJwt(final String id){
