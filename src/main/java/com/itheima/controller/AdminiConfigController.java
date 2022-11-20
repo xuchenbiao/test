@@ -32,8 +32,10 @@ public class AdminiConfigController {
             } else flag = 0;
         }
         if (flag == 1&&(admini.getAdmininame()!=""&&admini.getAdminipassword()!="")) {
+            Object obj=session.getAttribute("loginUser");
+            if(obj==null){
             session.setAttribute("loginUser","admini");
-            session.setMaxInactiveInterval(20);
+            session.setMaxInactiveInterval(20);}
             String token= JwtUtil.createJwt(admini.getAdmininame());
             admini.setToken(token);
             return new R(true,admini, "登录成功");

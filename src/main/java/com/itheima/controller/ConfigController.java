@@ -34,8 +34,10 @@ public class ConfigController {
            } else flag = 0;
        }
        if (flag == 1&&(user.getUsername()!=""&&user.getPassword()!="")) {
-           session.setAttribute("loginUser", "user");
-           session.setMaxInactiveInterval(20);
+           Object obj=session.getAttribute("loginUser");
+           if(obj==null){
+               session.setAttribute("loginUser","admini");
+               session.setMaxInactiveInterval(20);}
            String token= JwtUtil.createJwt(user.getUsername());
            user.setToken(token);
            return new R(true,user, "登录成功");
