@@ -3,6 +3,7 @@
 package com.itheima.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.itheima.domain.Book;
 import com.itheima.service.BookService;
 import com.itheima.util.R;
@@ -82,6 +83,13 @@ public class BookController {
         }
         }
         return new R(true,list1);
+    }
+
+    //分页
+    @GetMapping("/{current}/{size}")
+    public R page(@PathVariable int current,@PathVariable int size){
+        IPage page=new Page(current,size);
+        return new R(true,  bookService.page(page,null));
     }
 
 }
