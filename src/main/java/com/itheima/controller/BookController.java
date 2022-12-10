@@ -85,11 +85,11 @@ public class BookController {
         return new R(true,list1);
     }
 
-    //分页
-    @GetMapping("/{current}/{size}")
-    public R page(@PathVariable int current,@PathVariable int size){
-        IPage page=new Page(current,size);
-        return new R(true,  bookService.page(page,null));
-    }
+
+    
+    
+
+
+
 
 }

@@ -1,5 +1,6 @@
 package com.itheima.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.itheima.dao.BookDao;
 import com.itheima.domain.Book;
@@ -17,6 +18,7 @@ public interface BookService extends IService<Book>  {
     public boolean update(Integer number,String name);
     public Integer getNumberByName(String name);
     public List<Book> getByDescription(String description);
+  //  public IPage getPage(int current,int size);
 
 
 }
