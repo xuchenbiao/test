@@ -71,5 +71,7 @@ public class P2Tests {
     public void g7(){
        IPage page=new Page(1,1);
        bookService.page(page,null);
+        System.out.println(page.getTotal());
+        System.out.println(page.getRecords());
     }
 }

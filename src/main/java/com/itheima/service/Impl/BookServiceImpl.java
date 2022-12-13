@@ -64,6 +64,13 @@ public class BookServiceImpl extends ServiceImpl<BookDao,Book> implements BookSe
         return bookDao.getByDescription(description);
     }
 
+    @Override
+    public IPage<Book> getPage(int current, int size) {
+        IPage page=new Page(current,size);
+        bookDao.selectPage(page,null);
+        return page;
+    }
+
 //    @Override
 //    public IPage getPage(int current, int size) {
 //         IPage page=new Page(current,size);

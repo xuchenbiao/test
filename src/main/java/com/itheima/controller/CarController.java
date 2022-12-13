@@ -36,7 +36,7 @@ public class CarController {
                        book.getNumber() + carService.getNumber(book.getName()),
                        book.getPrice(),
                        (book.getNumber() + carService.getNumber(book.getName())) * book.getPrice(),
-                       book.getName()));//写这个头痛
+                       book.getName()));
            } else {
                Car car = new Car();
                car.setPrice(book.getPrice());

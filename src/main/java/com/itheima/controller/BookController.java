@@ -39,6 +39,14 @@ public class BookController {
         return new R(bookService.save(book));
     }
 
+@GetMapping("{current}/{size}")
+public R getPage(@PathVariable int current,@PathVariable int size){
+    IPage<Book> page = bookService.getPage(current, size);
+    if (current>page.getPages()){
+        page=bookService.getPage((int)page.getPages(),size);
+    }
+    return new R(true,page);
+}
 
 
 
@@ -84,12 +92,4 @@ public class BookController {
         }
         return new R(true,list1);
     }
-
-
-    
-    
-
-
-
-
 }

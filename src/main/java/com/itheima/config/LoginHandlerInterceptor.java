@@ -12,15 +12,11 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
      //   Object delete1=request.getSession().getAttribute("delete1");
         Object loginUser = request.getSession().getAttribute("loginUser");
-
-        System.out.println(loginUser+"0000");
         if (loginUser==null)
         {
-            System.out.println("过了");
             return false;
         }
         else{
-            System.out.println("token时间未过，拦截器未拦截");
             return true;}
     }
 }

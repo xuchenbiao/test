@@ -19,6 +19,7 @@ public interface BookService extends IService<Book>  {
     public Integer getNumberByName(String name);
     public List<Book> getByDescription(String description);
   //  public IPage getPage(int current,int size);
+  IPage<Book> getPage(int current,int size);
 
 
 }
