@@ -1,5 +1,7 @@
 package com.itheima.service.Impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itheima.dao.TotalDao;
 import com.itheima.domain.Total;
@@ -25,5 +27,17 @@ public class TotalServiceImpl extends ServiceImpl<TotalDao, Total> implements To
     public boolean deleteAll() {
          totalDao.deleteAll();
          return true;
+    }
+
+    @Override
+    public boolean deleteAllTotal() {
+        return totalDao.deleteAllTotal();
+    }
+
+    @Override
+    public IPage<Total> getPage(int current, int size) {
+        IPage page=new Page(current,size);
+        totalDao.selectPage(page,null);
+        return page;
     }
 }

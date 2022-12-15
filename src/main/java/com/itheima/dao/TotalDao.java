@@ -15,5 +15,7 @@ public interface TotalDao extends BaseMapper<Total> {
     public Integer getNumber(String name);
    @Delete("delete from car")
     public void deleteAll();
+   @Delete("delete from total")
+    public boolean deleteAllTotal();
 
 }

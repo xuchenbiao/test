@@ -1,5 +1,7 @@
 package com.itheima.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.itheima.domain.Borrow;
 import com.itheima.service.BorrowService;
 import com.itheima.util.R;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class BorrowOverController {
     @Autowired
     private BorrowService borrowService;
-    @GetMapping
-    public R getAll(){
-        return new R(true,borrowService.list());
+    @GetMapping("{current}/{size}")
+    public R getAll(@PathVariable int current,@PathVariable int size){
+        IPage<Borrow> page = borrowService.getPage(current, size);
+        if (current>page.getPages()){
+            page=borrowService.getPage((int)page.getPages(),size);
+        }
+
+        return new R(true,page);
     }
     @GetMapping("/name/{name}")
     public R getByName(@PathVariable String name){

@@ -67,6 +67,7 @@ public class AdminiConfigController {
         String token=request.getHeader("token");
         return new R(JwtUtil.checkToken(token));
     }
+
 }
 
 

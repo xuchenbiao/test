@@ -1,5 +1,7 @@
 package com.itheima.service.Impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itheima.dao.BorrowDao;
 import com.itheima.domain.Borrow;
@@ -22,5 +24,12 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowDao, Borrow> implements
     @Override
     public List<Borrow> getByName(String name) {
         return borrowDao.getByName(name);
+    }
+
+    @Override
+    public IPage<Borrow> getPage(int current, int size) {
+        IPage page=new Page(current,size);
+        borrowDao.selectPage(page,null);
+        return page;
     }
 }

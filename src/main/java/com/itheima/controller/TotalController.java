@@ -1,4 +1,6 @@
 package com.itheima.controller;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.itheima.domain.Admini;
 import com.itheima.domain.Car;
 import com.itheima.domain.Rtotal;
 import com.itheima.domain.Total;
@@ -7,11 +9,9 @@ import com.itheima.service.CarService;
 import com.itheima.service.RtotalService;
 import com.itheima.service.TotalService;
 import com.itheima.util.R;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -29,13 +29,20 @@ private TotalService totalService;
 private BookService bookService;
 @Autowired
 private RtotalService rtotalService;
-@GetMapping
-public R getAll(){
-    return new R(true,totalService.list());
+@GetMapping("{current}/{size}")
+public R getAll(@PathVariable int current,@PathVariable int size){
+    IPage<Total> page = totalService.getPage(current, size);
+    if (current>page.getPages())
+        page=totalService.getPage((int)page.getPages(),size);
+    return new R(true,page);
 }
-@GetMapping("/rtotal")
-public R getAllR(){
-    return new R(true,rtotalService.list());
+@GetMapping("/rtotal/{current}/{size}")
+public R getAllR(@PathVariable int current,@PathVariable int size){
+
+    IPage<Rtotal> page = rtotalService.getPage(current, size);
+    if (current>page.getPages())
+        page=rtotalService.getPage((int)page.getPages(),size);
+    return new R(true,page);
 }
 @GetMapping("/price")
 public R getAllMoney(){
@@ -61,7 +68,7 @@ public R getAllMoney(){
           rtotal.setPrice(list.get(i).getPrice());
           rtotal.setTotalprice(list.get(i).getTotalprice());
           Date date=new Date(System.currentTimeMillis());
-          DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+          DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
           String strDate = dateFormat.format(date);
           rtotal.setDate(strDate);
           rtotalService.save(rtotal);
@@ -99,6 +106,27 @@ public R getAllMoney(){
       return new R(true);
       }
 
+      @DeleteMapping("/admins/{id}/{ee}")
+    public R deleteById(@PathVariable Integer id,@PathVariable int ee){
+          String name = totalService.getById(id).getName();
+          if (ee==0){//如果传0，就是一起删除，如果传其他，就只删除学生
+          totalService.removeById(id);}
+          List<Rtotal> list=rtotalService.selectByName(name);
+          for (int i=0;i<list.size();i++){
+              rtotalService.removeById(list.get(i).getId());
+          }
+    return new R(true);
+      }
 
-  }
+      @DeleteMapping
+    public R deleteAll(){
+    rtotalService.deleteAll();
+    totalService.deleteAllTotal();
+    return new R(true);
+      }
+
+
+
+
+}
 

@@ -74,4 +74,8 @@ public class P2Tests {
         System.out.println(page.getTotal());
         System.out.println(page.getRecords());
     }
+    @Test
+    public void f(){
+        rtotalService.selectByName("一剑独尊");
+    }
 }

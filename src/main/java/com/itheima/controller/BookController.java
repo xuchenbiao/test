@@ -10,6 +10,7 @@ import com.itheima.util.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -36,7 +37,19 @@ public class BookController {
     }
     @PostMapping
     public R save(@RequestBody Book book){
-        return new R(bookService.save(book));
+        int k=0;
+        List<Book> list=new ArrayList<>();
+        list=bookService.getByName2();
+       for (int i=0;i<list.size();i++){
+
+          if (book.getName().equals(list.get(i).getName())){
+              k=1;
+              break;
+          }
+       }
+      if (k==0)
+       return new R(bookService.save(book));
+       else return new R(false,null,"添加失败，已有存在的书籍");
     }
 
 @GetMapping("{current}/{size}")
@@ -45,6 +58,7 @@ public R getPage(@PathVariable int current,@PathVariable int size){
     if (current>page.getPages()){
         page=bookService.getPage((int)page.getPages(),size);
     }
+    System.out.println(page.getRecords()+"666");
     return new R(true,page);
 }
 
@@ -92,4 +106,6 @@ public R getPage(@PathVariable int current,@PathVariable int size){
         }
         return new R(true,list1);
     }
+
+
 }
