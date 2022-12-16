@@ -2,6 +2,7 @@ package com.itheima.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.itheima.domain.Admini;
 import com.itheima.domain.EJ;
+import com.itheima.domain.User;
 import com.itheima.service.AdminiService;
 import com.itheima.service.UserService;
 import com.itheima.util.R;
@@ -21,7 +22,7 @@ public class AdminiController {
     }
     @GetMapping("/admini/{current}/{size}")
     public R getAll(@PathVariable int current,@PathVariable int size){
-        IPage<Admini> page = adminiService.getPage(current, size);
+        IPage<User> page = adminiService.getPage(current, size);
         if (current>page.getPages())
             page=adminiService.getPage((int)page.getPages(),size);
         return new R(true,page);

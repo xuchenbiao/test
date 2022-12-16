@@ -1,5 +1,6 @@
 package com.itheima.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.itheima.domain.User;
 import com.itheima.service.UserService;
 import com.itheima.util.R;
@@ -25,4 +26,10 @@ public class UserController {
     public R getName(@PathVariable String name){
        return new R(true,userService.getName(name),null);
     }
+    @GetMapping("{current}/{size}")
+    public R getAll(@PathVariable int current,@PathVariable int size){
+        IPage<User> page = userService.getPage(current, size);
+        if (current>page.getPages())
+            page=userService.getPage((int)page.getPages(),size);
+        return new R(true,page);}
 }

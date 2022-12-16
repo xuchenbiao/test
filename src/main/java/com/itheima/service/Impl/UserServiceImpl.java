@@ -1,5 +1,7 @@
 package com.itheima.service.Impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.itheima.dao.UserDao;
 import com.itheima.domain.User;
@@ -31,5 +33,12 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
     @Override
     public List<User> getName(String username) {
         return userDao.getName(username);
+    }
+
+    @Override
+    public IPage<User> getPage(int current, int size) {
+        IPage page=new Page(current,size);
+        userDao.selectPage(page,null);
+        return page;
     }
 }

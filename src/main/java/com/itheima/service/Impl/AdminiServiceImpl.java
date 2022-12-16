@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.itheima.dao.AdminiDao;
 import com.itheima.domain.Admini;
+import com.itheima.domain.User;
 import com.itheima.service.AdminiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ public class AdminiServiceImpl implements AdminiService {
     }
 
     @Override
-    public IPage<Admini> getPage(int current, int size) {
+    public IPage<User> getPage(int current, int size) {
         IPage page=new Page(current,size);
         adminiDao.selectPage(page,null);
         return page;
