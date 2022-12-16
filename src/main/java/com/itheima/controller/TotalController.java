@@ -106,11 +106,11 @@ public R getAllMoney(){
       return new R(true);
       }
 
-      @DeleteMapping("/admins/{id}/{ee}")
-    public R deleteById(@PathVariable Integer id,@PathVariable int ee){
+      @DeleteMapping("/admins/{id}")
+    public R deleteById(@PathVariable Integer id){
           String name = totalService.getById(id).getName();
-          if (ee==0){//如果传0，就是一起删除，如果传其他，就只删除学生
-          totalService.removeById(id);}
+
+          totalService.removeById(id);
           List<Rtotal> list=rtotalService.selectByName(name);
           for (int i=0;i<list.size();i++){
               rtotalService.removeById(list.get(i).getId());

@@ -12,3 +12,5 @@ public interface TotalService extends IService<Total> {
     public boolean deleteAllTotal();
     public IPage<Total> getPage(int current, int size);
 }
+
+//java,c++,python

@@ -39,5 +39,6 @@ public class TotalServiceImpl extends ServiceImpl<TotalDao, Total> implements To
         IPage page=new Page(current,size);
         totalDao.selectPage(page,null);
         return page;
+
     }
 }
